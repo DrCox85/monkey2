@@ -330,6 +330,21 @@ Class Image Extends Resource
 		Return image
 	End
 	
+	#rem monkeydoc Loads an image from Databuffer.
+	#end
+	Function Load:Image( data:DataBuffer,shader:Shader=Null,textureFlags:TextureFlags=TextureFlags.FilterMipmap )
+		
+		Local path:="memory::("+ULong( data.Data )+","+data.Length+")"
+		Local pixmap:=Pixmap.Load( path,Null,True )
+		If Not pixmap Return Null
+	
+		If Not shader shader=mojo.graphics.Shader.GetShader( "sprite" )
+		
+		Local image:=New Image( pixmap,textureFlags,shader )
+		
+		Return image
+	End
+	
 	#rem monkeydoc Loads a bump image from file(s).
 	
 	`diffuse`, `normal` and `specular` are filepaths of the diffuse, normal and specular image files respectively.

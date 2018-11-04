@@ -145,6 +145,7 @@ Enum Key
 	Semicolon=59
 	Equals=61
 	LeftBracket=91,Backslash,RightBracket
+	Caret=94
 	Backquote=96
 	A=97,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z
 	KeyDelete=127
