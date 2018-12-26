@@ -102,7 +102,23 @@ Class MouseDevice
 	Property Y:Int()
 		Return Location.y
 	End
-
+	
+	#rem monkeydoc X Speed of the mouse.
+	#end
+	Property XSpeed:Int()
+		Local d:=_location.x-_lastlocation.x
+		_lastlocation.x=_location.x
+		Return d
+	End
+	
+	#rem monkeydoc Y Speed of the mouse.
+	#end
+	Property YSpeed:Int()
+		Local d:=_location.y-_lastlocation.y
+		_lastlocation.y=_location.y
+		Return d
+	End
+	
 	#rem monkeydoc The mouse location.
 	
 	This property may be written to warp the mouse to a new location.
@@ -114,6 +130,14 @@ Class MouseDevice
 		_location=location
 		SDL_WarpMouseInWindow( Null,location.x,location.y )
 	End
+	
+	#rem monkeydoc hidden
+	#end
+'	Property LastLocation:Vec2i()
+'		Local d:=_location-_lastlocation
+'		_lastlocation=_location
+'		Return d
+'	End
 	
 	#rem monkeydoc The mouse wheel delta x value since the last app update.
 	#end
@@ -239,6 +263,7 @@ Class MouseDevice
 
 	Field _init:Bool	
 	Field _location:Vec2i
+	Field _lastlocation:Vec2i
 	Field _wheel:Vec2i
 	Field _down:=New Bool[4]
 	Field _pressed:=New Bool[4]
