@@ -5,7 +5,7 @@
 Using libc..
 Using std..
 
-Const MONKEY2_VERSION:="2018.08"
+Const MONKEY2_VERSION:="2018.09"
 
 Const MX2CC_VERSION:="1.1.15"
 
@@ -140,6 +140,8 @@ Function CopyRelease()
 	Copy( "shapes-scene.mojo3d" )
 	Copy( "sprites-scene.mojo3d" )
 	Copy( "test-scene.mojo3d" )
+	
+	Copy( "xmas-lights.png" )
 	
 #If __TARGET__="windows"
 	Copy( "Monkey2 (Windows).exe" )
