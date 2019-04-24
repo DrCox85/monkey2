@@ -118,6 +118,14 @@ Class MouseDevice
 		_lastlocation.y=_location.y
 		Return d
 	End
+	#rem monkeydoc The mouse desktop location.
+	
+	This property get the mouse desktop location.
+	
+	#end
+	Property DesktopLocation:Vec2i()
+		Return _desktoplocation
+	End
 	
 	#rem monkeydoc The mouse location.
 	
@@ -228,6 +236,8 @@ Class MouseDevice
 	Method Update()
 	
 		Local mask:=SDL_GetMouseState( Varptr _location.x,Varptr _location.y )
+		SDL_GetGlobalMouseState(Varptr _desktoplocation.x, Varptr _desktoplocation.y)
+		
 		If App.ActiveWindow	_location=App.ActiveWindow.TransformPointFromView( App.ActiveWindow.MouseScale * _location,Null )
 		
 		UpdateButton( MouseButton.Left,mask & 1 )
@@ -264,6 +274,7 @@ Class MouseDevice
 
 	Field _init:Bool	
 	Field _location:Vec2i
+	Field _desktoplocation:Vec2i
 	Field _lastlocation:Vec2i
 	Field _wheel:Vec2i
 	Field _down:=New Bool[4]

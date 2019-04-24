@@ -159,7 +159,7 @@ MX2_CPP_OPTS_EMSCRIPTEN_RELEASE=-O3 -DNDEBUG
 'For android builds, you need to either set this correctly or make sure 'ndk-build' is available from the command line via you PATH.
 '
 'PATH=D:\devtools\Android\sdk\ndk-bundle;${PATH}
-
+PATH=C:\Users\chris\AppData\Local\Android\Sdk\ndk-bundle;${PATH}
 'Application.mk
 '
 MX2_ANDROID_APP_CFLAGS=-std=gnu99 -fno-stack-protector
