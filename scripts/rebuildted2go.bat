@@ -7,7 +7,7 @@ echo.
 echo ***** Rebuilding ted2 *****
 echo.
 
-%mx2cc% makeapp -clean -apptype=gui -build -config=release -product=scripts/ted2go.products/windows/Ted2.exe ../src/ted2go/Ted2.monkey2
+%mx2cc% makeapp -verbose -clean -apptype=gui -build -config=release -product=scripts/ted2go.products/windows/Ted2.exe ../src/ted2go/Ted2.monkey2
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 xcopy ted2go.products\windows\assets ..\bin\ted2_windows\assets /Q /I /S /Y
