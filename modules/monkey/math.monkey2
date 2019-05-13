@@ -251,3 +251,17 @@ Function Sgn<T>:Double( x:T ) Where T Implements IReal
 	If x>0 Return 1
 	Return 0
 End
+
+#rem monkeydoc Linear interpolation between a and b by t.
+
+The parameter t is clamped to the range between 0 and 1.
+
+When t = 0 returns a. 
+When t = 1 return b. 
+When t = 0.5 returns the midpoint of a and b.
+
+#End
+
+Function Lerp:Float( a:Float, b:Float, t:Float ) 
+	Return a + t * ( b - a )
+End Function 	
