@@ -5,7 +5,7 @@ Namespace mx2cc
 
 Function FindMSVC:Bool()
 
-	Local msvcs:=GetEnv( "ProgramFiles(x86)" )+"\Microsoft Visual Studio\2017"
+	Local msvcs:=GetEnv( "ProgramFiles(x86)" )+"\Microsoft Visual Studio\2019"
 	If GetFileType( msvcs )<>FileType.Directory Return False
 	
 	Local wkits:=GetEnv( "ProgramFiles(x86)" )+"\Windows Kits\10"
@@ -14,7 +14,7 @@ Function FindMSVC:Bool()
 	Local toolsDir:="",maxver:=0
 	
 	For Local f:=Eachin LoadDir( msvcs )
-		
+	
 		Local dir:=msvcs+"\"+f+"\VC\Tools\MSVC"
 		If GetFileType( dir )<>FileType.Directory Continue
 		

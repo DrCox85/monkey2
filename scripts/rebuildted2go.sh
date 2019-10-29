@@ -5,9 +5,9 @@ echo ""
 echo "***** Rebuilding ted2go *****"
 echo ""
 
-$mx2cc makeapp -clean -apptype=gui -build -config=release -product=scripts/ted2go.products/$host/ted2 ../src/ted2go/Ted2.monkey2
+$mx2cc makeapp -clean -verbose -apptype=gui -build -config=release -product=scripts/ted2go.products/$host/ted2 ../src/ted2go/Ted2.monkey2
 
-$mx2cc makeapp -clean -apptype=gui -build -config=release -product=scripts/launcher.products/$host/launcher ../src/launcher/launcher.monkey2
+$mx2cc makeapp -clean -verbose -apptype=gui -build -config=release -product=scripts/launcher.products/$host/launcher ../src/launcher/launcher.monkey2
 
 if [ "$OSTYPE" = "linux-gnu" ]
 then
