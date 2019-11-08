@@ -9,13 +9,27 @@ Using std.collections
 #end
 Class Stream Extends std.resource.Resource
 	
-	Field Loading:Void() 'Invoke when ReadAll Load
+	Field ReadAllLoading:Void() 'Invoke when ReadAll Loading
 	
-	#rem monkeydoc ReadAll PercentLoad
+	#rem monkeydoc Give the ReadAll Position
 	#end 
-	Property ReadAllPercent:Int()
+	Property ReadAllPos:Float()
 		
-		Return _readAllPercent
+		Return _readAllPos
+	End
+	
+	#rem monkeydoc Give the ReadAll Count
+	#end 
+	Property ReadAllCount:Int()
+		
+		Return _readAllCount
+	End
+	
+	#rem monkeydoc Give the ReadAll Count
+	#end 
+	Property ReadAllBytes:Int()
+		
+		Return _readAllBytes
 	End
 	
 	#rem monkeydoc True if no more data can be read from the stream.
@@ -136,18 +150,20 @@ Class Stream Extends std.resource.Resource
 	Method ReadAll:Int( buf:Void Ptr,count:Int )
 	
 		Local pos:Float=0
-		_readAllPercent=0
+		_readAllPos=pos
 		
 		While pos<count
-			
-			Local percent:=Int((pos/count)*100)
-			_readAllPercent=percent
-			Loading()
+	
 			Local n:=Read( Cast<UByte Ptr>( buf )+Int(pos),count-Int(pos) )
+			_readAllPos=pos
+			_readAllBytes=n
+			_readAllCount=count
+			ReadAllLoading()
 			If n<=0 Exit
 			pos+=n
 		Wend
-		
+		_readAllPos=count
+		ReadAllLoading()
 		Return pos
 	End
 	
@@ -639,7 +655,11 @@ Class Stream Extends std.resource.Resource
 	
 	Private
 	
-	Field _readAllPercent:Int
+	Field _readAllPos:Float
+	
+	Field _readAllCount:Int
+	
+	Field _readAllBytes:Int
 	
 	Field _swap:Bool
 	
