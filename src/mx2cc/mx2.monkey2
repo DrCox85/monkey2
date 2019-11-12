@@ -37,6 +37,8 @@ Namespace mx2
 #Import "builder"
 #Import "buildproduct"
 
+#Import "incbin"
+
 Using std
 Using std.stringio
 Using std.filesystem
