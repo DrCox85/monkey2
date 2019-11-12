@@ -2135,6 +2135,7 @@ Class Parser
 	Field _usings:=New StringStack
 	Field _errors:=New Stack<ParseEx>
 	
+	
 	'***** Messy Preprocessor - FIXME! *****
 	
 	Field _ppsyms:StringMap<String>
@@ -2329,7 +2330,7 @@ Class Parser
 						
 					_imports.Push( path )
 				Endif
-				
+			
 			Case "reflect"
 				
 				If _cc.Top=1
@@ -2356,6 +2357,77 @@ Class Parser
 				If _cc.Top=1
 					p.Bump()				
 					Print p.Eval()
+				Endif
+				
+			Case "incbin"
+			
+				
+				If _cc.Top=1
+				
+					p.Bump()
+					Local path:=p.ParseString()
+					Print "#INCBIN:"+path
+					
+					Local _appPath:=ExtractDir(_fdecl.path)
+					Local bytesCount:=64
+					Local fileName:=StripDir(path).Replace(".","_")
+					Local test:FileStream=FileStream.Open(path,"r")
+					Local _file:FileStream=FileStream.Open(_appPath+fileName+"_incbin.monkey2","w")
+					Local linesSplit:String[]
+					Local line:String
+					Local counter:Int
+					Local splitCounter:Int
+					Local stringSize:Int=(test.Length/bytesCount)+1
+					
+					_file.WriteLine("Namespace "+_fdecl.nmspace)
+					_file.WriteLine("Private")
+					_file.WriteLine("Class Incbin_"+fileName)
+					_file.WriteLine("Global Name:=~q"+fileName+"~q")
+					_file.WriteLine("Global Line:=New String["+stringSize+"]")
+					_file.WriteLine("Method New()")
+					
+					For Local a:=0 To test.Length-1
+						line+=String(test.ReadByte())+","
+						counter+=1
+						If counter=bytesCount 
+							_file.WriteLine("Line["+splitCounter+"]=~q"+line+"~q")
+							counter=0
+							line=""
+							splitCounter+=1
+						End
+									
+					Next
+					
+					If counter>0 Then _file.WriteLine("Line["+splitCounter+"]=~q"+line+"~q")
+					_file.WriteLine("End")	
+					_file.WriteLine("Global count:="+splitCounter)
+					_file.WriteLine("Global size:="+test.Length)
+					_file.WriteLine("End")
+'					Function Read:DataBuffer()
+'						Local _buf:=New Incbin_back_png
+'						
+'						Local _dataBuffer:=New DataBuffer(_buf.size)
+'						Local splitLine:String[]
+'						Local counter:Int
+'						For Local a:=0 To _buf.count
+'							Local _line:=_buf.Line[a]
+'							splitLine=_line.Split(",")
+'							For Local b:=0 To splitLine.Length-2
+'								_dataBuffer.PokeUByte(counter,Byte(splitLine[b]))
+'								counter+=1
+'							next
+'						Next
+'						Return _dataBuffer
+'					End
+					_file.WriteLine("Public")
+					_file.WriteLine("Function incbin_"+fileName+":DataBuffer()")
+					_file.WriteLine("Return Null")
+					_file.WriteLine("End")
+					_file.Close()
+					test.Close()
+					p.ParseEol()
+					
+					_imports.Push( fileName+"_incbin.monkey2" )
 				Endif
 				
 			Default
