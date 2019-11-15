@@ -115,6 +115,11 @@ Class FileStream Extends Stream
 		Return New FileStream( file )
 	End
 	
+	Function Open:Stream( data:DataBuffer )
+		
+		Return New DataStream( data )
+	End
+	
 	Protected
 	
 	Method OnDiscard() Override
