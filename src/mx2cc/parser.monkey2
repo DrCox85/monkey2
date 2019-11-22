@@ -2367,8 +2367,12 @@ Class Parser
 					p.Bump()
 					Local path:=p.ParseString()
 					p.ParseEol()
+					Local _apppath:=ExtractDir( _fdecl.path )
+						
+					If Not path.Contains( ":/" )
+						path=_apppath+path
+					End
 					
-				
 					If GetFileType( path )=FileType.File
 						
 						Local _fileName:=Incbin.Create( path,_fdecl )
