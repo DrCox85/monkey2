@@ -11,6 +11,8 @@
 /bin/ted2.state.json
 /bin/ted2_*
 
+/devtools/*
+!/devtools/.gitignore
 
 *.products/
 
