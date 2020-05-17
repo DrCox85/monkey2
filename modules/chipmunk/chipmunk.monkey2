@@ -47,3 +47,5 @@ Namespace chipmunk
 #Import "Chipmunk7/src/cpSweep1D.c"
 
 #Import "chipmunk_glue.cpp"
+
+Const cpINFINITY:Float=340282300000000000000000000000000000000
