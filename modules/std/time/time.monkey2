@@ -324,6 +324,13 @@ Class Time
 		Return New Time( ticks )
 	End
 	
+	#rem monkeydoc Gets Unix TimeStamp.
+	#end
+	Function Unix:Long()
+		Local ticks:=to_ticks( libc.time( Null ) )
+		Return ticks/TimeSpan.TicksPerSecond
+	End
+	
 	#rem monkeydoc Parses a time from a string.
 	
 	The string format is: 'WeekDay' Day 'Month' Year Hours:Minutes:Seconds.
